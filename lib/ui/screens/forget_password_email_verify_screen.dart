@@ -1,22 +1,22 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager_fully_functional/ui/widgets/screen_background.dart';
-
 import 'forget_password_pin_verification_screen.dart';
+import 'package:task_manager_fully_functional/ui/screens/forget_password_email_verify_screen.dart';
 
-class ForgetPasswordPinVerificationScreen extends StatefulWidget {
-  const ForgetPasswordPinVerificationScreen({super.key});
+class ForgetPasswordEmailVerificationScreen extends StatefulWidget {
+  const ForgetPasswordEmailVerificationScreen({super.key});
 
   @override
-  State<ForgetPasswordPinVerificationScreen> createState() =>
-      _ForgetPasswordPinVerificationScreenState();
+  State<ForgetPasswordEmailVerificationScreen> createState() =>
+      _ForgetPasswordEmailVerificationScreenState();
 }
 
 final TextEditingController _emailTEController = TextEditingController();
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-class _ForgetPasswordPinVerificationScreenState
-    extends State<ForgetPasswordPinVerificationScreen> {
+class _ForgetPasswordEmailVerificationScreenState
+    extends State<ForgetPasswordEmailVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,15 +97,17 @@ class _ForgetPasswordPinVerificationScreenState
     );
   }
   void _onTapSubmitButton() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordPinVerificarionScreen(),),);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordPinVerificationScreen(),),);
   }
 
   void _onTapSignInButton() {
     Navigator.pop(context);
   }
+  @override
+  void dispose() {
+    _emailTEController.dispose();
+    super.dispose();
+  }
 
-  // void dispose () {
-  //   _emailTEController.dispose();
-  //   super.dispose();
-  // }
+
 }

@@ -131,14 +131,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void _onTapSignInButton() {
     Navigator.pop(context);
   }
+  @override
+  void dispose() {
+    _emailTEController.dispose();
+    _firstNameTEController.dispose();
+    _lastNameTEController.dispose();
+    _mobileTEController.dispose();
+    _passwordTEController.dispose();
+    super.dispose();
+  }
 
-  // void dispose(){
-  //   _emailTEController.dispose();
-  //   _firstNameTEController.dispose();
-  //   _lastNameTEController.dispose();
-  //   _mobileTEController.dispose();
-  //   _passwordTEController.dispose();
-  //   super.dispose();
-  // }
 }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager_fully_functional/ui/screens/forget_password_email_verify_screen.dart';
+import 'package:task_manager_fully_functional/ui/screens/main_bottom_nav_screen.dart';
 import 'package:task_manager_fully_functional/ui/screens/register_screen.dart';
 import 'package:task_manager_fully_functional/ui/widgets/screen_background.dart';
 
@@ -58,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 16,
               ),
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: _onTapSignInButton,
                   child: Icon(
                     Icons.arrow_circle_right_outlined,
                     color: Colors.white,
@@ -91,31 +92,52 @@ class _LoginScreenState extends State<LoginScreen> {
                             recognizer: TapGestureRecognizer()
                               ..onTap = _onTapSignUpButton,
                           ),
-                        ])),
+                        ]
+                        )
+                    ),
                   ],
                 ),
               )
             ],
           ),
         ),
-      )),
+      )
+      ),
+    );
+  }
+
+  void _onTapSignInButton() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MainBottomNavScreen(),
+      ),
+        (predicate)=> false,
     );
   }
 
   void _onTapForgetPasswordButton() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ForgetPasswordPinVerificationScreen()));
-
+      context,
+      MaterialPageRoute(
+        builder: (context) => ForgetPasswordEmailVerificationScreen(),
+      ),
+    );
   }
+
   void _onTapSignUpButton() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => RegisterScreen()));
+      context,
+      MaterialPageRoute(
+        builder: (context) => RegisterScreen(),
+      ),
+    );
   }
 
-
-  // void dispose() {
-  //   _emailTEController.dispose();
-  //   _passwordTEController.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    _emailTEController.dispose();
+    _passwordTEController.dispose();
+    super.dispose();
+  }
 }
