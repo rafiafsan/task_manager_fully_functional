@@ -9,7 +9,6 @@ class UpdateProfileScreen extends StatefulWidget {
   @override
   State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
 }
-
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   @override
   Widget build(BuildContext context) {
