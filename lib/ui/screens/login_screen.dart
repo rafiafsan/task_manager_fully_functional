@@ -162,7 +162,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
   Future<void> _login() async {
     _loginInProgress = true;
     setState(() {});
