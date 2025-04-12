@@ -121,7 +121,7 @@ class _ForgetPasswordPinVerificationScreenState
   }
   @override
   void dispose() {
-    _pinCodeTEController.dispose();
+    _pinCodeTEController.clear();
     super.dispose();
   }
 

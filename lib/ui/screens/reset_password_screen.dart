@@ -119,8 +119,8 @@ class _ResetPasswordScreenState
   }
   @override
   void dispose() {
-    _newPasswordTEController.dispose();
-    _confirmNewPasswordTEController.dispose();
+    _newPasswordTEController.clear();
+    _confirmNewPasswordTEController.clear();
     super.dispose();
   }
 

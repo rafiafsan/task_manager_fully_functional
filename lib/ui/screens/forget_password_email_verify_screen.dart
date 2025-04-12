@@ -105,7 +105,7 @@ class _ForgetPasswordEmailVerificationScreenState
   }
   @override
   void dispose() {
-    _emailTEController.dispose();
+    _emailTEController.clear();
     super.dispose();
   }
 

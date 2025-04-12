@@ -29,6 +29,10 @@ class UserModel {
       'photo' : photo,
     };
   }
+
+  String get fullName{
+    return '$firstName $lastName';
+  }
 }
 
 //

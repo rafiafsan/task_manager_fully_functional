@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:task_manager_fully_functional/ui/controllers/auth_controller.dart';
+import 'package:task_manager_fully_functional/ui/screens/login_screen.dart';
 import 'package:task_manager_fully_functional/ui/screens/update_profile_screen.dart';
 
 class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -7,8 +11,7 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.fromProfileScreen,
   });
 
-  final bool ?fromProfileScreen;
-
+  final bool? fromProfileScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +19,8 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.green,
       title: GestureDetector(
-        onTap: (){
-          if(fromProfileScreen ?? false){
+        onTap: () {
+          if (fromProfileScreen ?? false) {
             return;
           }
           _onTapProfileSection(context);
@@ -26,6 +29,10 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             CircleAvatar(
               radius: 18,
+              backgroundImage: _shouldShowImage(AuthController.userModel?.photo)
+                  ? MemoryImage(
+                      base64Decode(AuthController.userModel?.photo ?? ''))
+                  : null,
             ),
             SizedBox(
               width: 8,
@@ -35,28 +42,49 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Rafi Afsan',
+                    AuthController.userModel?.fullName ?? 'Unknown',
                     style: textTheme.bodyLarge?.copyWith(
                       color: Colors.white,
                     ),
                   ),
-                  Text('rafiafs45@gmail.com',
+                  Text(AuthController.userModel?.email ?? 'Unknown',
                       style: textTheme.bodySmall?.copyWith(
                         color: Colors.white,
                       )),
                 ],
               ),
             ),
-            IconButton(onPressed: (){}, icon: Icon(Icons.logout)),
-
+            IconButton(
+                onPressed: () => _onTapLogoutButton(context),
+                icon: Icon(Icons.logout)),
           ],
         ),
       ),
     );
   }
-  
-  void _onTapProfileSection(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateProfileScreen(),),);
+
+  bool _shouldShowImage(String? photo) {
+    return photo != null && photo.isNotEmpty;
+  }
+
+  void _onTapProfileSection(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => UpdateProfileScreen(),
+      ),
+    );
+  }
+
+  Future<void> _onTapLogoutButton(BuildContext context) async {
+    await AuthController.clearUserData();
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LoginScreen(),
+      ),
+      (predicate) => false,
+    );
   }
 
   @override

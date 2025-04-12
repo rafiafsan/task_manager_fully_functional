@@ -133,13 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onTapSignInButton() {
-    // Navigator.pushAndRemoveUntil(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => MainBottomNavScreen(),
-    //   ),
-    //     (predicate)=> false,
-    // );
+
     if(_formKey.currentState!.validate()){
       _login();
     }
@@ -186,11 +180,12 @@ class _LoginScreenState extends State<LoginScreen> {
       // TODO : Logged in or not
 
 
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           builder: (context) => MainBottomNavScreen(),
         ),
+            (predicate)=> false,
       );
     } else {
       showSnackBar(context,response.errorMessage,true);
@@ -199,8 +194,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    _emailTEController.dispose();
-    _passwordTEController.dispose();
+    _emailTEController.clear();
+    _passwordTEController.clear();
     super.dispose();
   }
 }
