@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_fully_functional/data/models/task_status_count_list_model.dart';
+import 'package:task_manager_fully_functional/data/models/task_status_count_model.dart';
+import 'package:task_manager_fully_functional/data/service/network_client.dart';
+import 'package:task_manager_fully_functional/data/utils/urls.dart';
 import 'package:task_manager_fully_functional/ui/screens/add_new_task_screen.dart';
+import 'package:task_manager_fully_functional/ui/widgets/snack_bar_message.dart';
 import '../widgets/summary_card.dart';
 import '../widgets/task_card.dart';
 
@@ -11,6 +16,17 @@ class NewTaskScreen extends StatefulWidget {
 }
 
 class _NewTaskScreenState extends State<NewTaskScreen> {
+  bool _getStatusCountInProgress = false;
+  List<TaskStatusCountModel> _taskStatusCountList =[];
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getAllTaskStatusCount();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,31 +66,58 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   }
 
   Widget _buildSummarySection() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            SummaryCard(
-              title: "New",
-              count: 12,
-            ),
-            SummaryCard(
-              title: "Progess",
-              count: 4,
-            ),
-            SummaryCard(
-              title: "Completed",
-              count: 3,
-            ),
-            SummaryCard(
-              title: "Cancelled",
-              count: 7,
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        height: 100,
+        child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: _taskStatusCountList.length,
+            itemBuilder: (context, index) {
+              return SummaryCard(
+                  title: _taskStatusCountList[index].status,
+                  count: _taskStatusCountList[index].count);
+            }),
       ),
+      // child: Row(
+      //   children: [
+      //     SummaryCard(
+      //       title: "New",
+      //       count: 12,
+      //     ),
+      //     SummaryCard(
+      //       title: "Progess",
+      //       count: 4,
+      //     ),
+      //     SummaryCard(
+      //       title: "Completed",
+      //       count: 3,
+      //     ),
+      //     SummaryCard(
+      //       title: "Cancelled",
+      //       count: 7,
+      //     ),
+      //   ],
+      // ),
     );
+  }
+
+  Future<void> _getAllTaskStatusCount() async {
+    _getStatusCountInProgress = true;
+    setState(() {});
+
+    final NetworkResponse response =
+        await NetworkClient.getRequest(url: Urls.taskStatusCountUrl);
+
+    if(response.isSuccess){
+      TaskStatusCountListModel taskStatusCountListModel =
+          TaskStatusCountListModel.fromJson(response.data ?? {});
+      _taskStatusCountList = taskStatusCountListModel.statusCountList;
+    }else{
+      showSnackBar(context, response.errorMessage,true);
+    }
+
+    _getStatusCountInProgress = false;
+    setState(() {});
   }
 }

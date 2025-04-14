@@ -175,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (response.isSuccess) {
       LoginModel loginModel = LoginModel.fromJson(response.data!);
       // TODO : save token to local
-      AuthController.SaveUserInformation(loginModel.token, loginModel.userModel);
+      await AuthController.SaveUserInformation(loginModel.token, loginModel.userModel);
       // TODO : database setup
       // TODO : Logged in or not
 

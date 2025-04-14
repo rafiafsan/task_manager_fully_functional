@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
@@ -31,8 +30,8 @@ class NetworkClient {
         'token': AuthController.token ?? ''
       };
       preRequestLog(url,headers);
-      Response response = await get(uri);
-      postRequestLog(url, response.statusCode, headers: response.headers,
+      Response response = await get(uri,headers: headers);
+      postRequestLog(url, response.statusCode, headers: headers,
           responseBody: response.body);
 
       if (response.statusCode == 200) {
