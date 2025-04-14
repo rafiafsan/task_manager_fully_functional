@@ -56,6 +56,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     );
   }
 
+
   void onTapTaskScreen() {
     Navigator.push(
       context,
