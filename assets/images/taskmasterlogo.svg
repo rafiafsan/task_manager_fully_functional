@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="60" viewBox="0 0 300 60">
+  <defs>
+    <linearGradient id="text-gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#21bf73"/>
+      <stop offset="100%" stop-color="#2d394f"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Circle/Icon from original -->
+  <circle cx="20" cy="40" r="6" fill="#21bf73"/>
+
+  <!-- Stylized "T" shape from original -->
+  <path d="M30,20 C30,10 50,10 50,20 C50,30 30,30 30,20 Z" fill="#21bf73"/>
+
+  <!-- Company Name: TaskMaster -->
+  <text x="70" y="45" font-family="Segoe UI, sans-serif" font-size="32" font-weight="bold" fill="url(#text-gradient)">
+    TaskMaster
+  </text>
+</svg>
